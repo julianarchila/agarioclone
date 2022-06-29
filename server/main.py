@@ -20,7 +20,7 @@ def main():
 
     # try to connect to server
     try:
-        S.bind((SERVER_IP, PORT))
+        S.bind(('0.0.0.0', PORT))
     except socket.error as e:
         print(str(e))
         print("[SERVER] Server could not start")

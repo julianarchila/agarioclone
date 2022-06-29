@@ -13,7 +13,7 @@ class Network:
     def __init__(self):
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # self.client.settimeout(10.0)
-        self.host = "127.0.1.1"
+        self.host = "13.71.64.234"
         self.port = 5555
         self.addr = (self.host, self.port)
 
@@ -49,7 +49,7 @@ class Network:
                 self.client.send(json.dumps(data).encode("utf-8"))
             else:
                 self.client.send(str.encode(data))
-            reply = self.client.recv(2048 * 4)
+            reply = self.client.recv(2048 * 10)
             # try:
             #     print("Loaading with pickle")
             #     reply = pickle.loads(reply)
