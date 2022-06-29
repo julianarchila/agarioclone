@@ -4,7 +4,7 @@ import asyncio
 
 import websockets
 
-from user_handler import user_thread
+from user_thread import user_thread
 
 
 async def handler(websocket):

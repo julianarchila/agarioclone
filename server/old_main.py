@@ -2,7 +2,7 @@ import socket
 
 from _thread import *
 
-from user_thread import user_thread
+from old_user_thread import user_thread
 from server_state import STATE
 
 
