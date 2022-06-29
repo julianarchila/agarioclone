@@ -1,5 +1,4 @@
-
-import pygame, sys 
+import pygame, sys, math
 
 
 
@@ -12,7 +11,7 @@ from game_state import STATE
 
 from handlers import handle_events
 from draw import redraw_window
-from client import Network
+from old_client import Network
 
 
 
@@ -25,11 +24,10 @@ def main(name):
 
 
     r_data = s.send({"cmd": "get"})
-
-
     STATE.users = r_data["users"]
     STATE.balls = r_data["balls"]
 
+    print(f"Recived from server: \n{type(r_data)}\n")
     print(r_data["users"])
 
     # crear ventana

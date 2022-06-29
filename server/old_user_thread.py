@@ -5,18 +5,13 @@ from time import time
 import time
 import json
 
-import websockets
-
 
 # My stuff
 from gf import gen_user, gen_balls, serialize_state, check_collision, player_collision
 from server_state import STATE
 
 
-
-
-
-async def user_thread(conn):
+def user_thread(conn: socket, _id: any):
     """
     Every connection runs in a new thread where
     all the interactions with the server are handled
@@ -26,14 +21,13 @@ async def user_thread(conn):
         STATE.start = True
         print("[STARTED] Game Started")
 
-    # data = conn.recv(16)
-    name = await conn.recv()
-
-    print(f"[CONNECTION] {name} connected")
+    data = conn.recv(16)
+    name = data.decode("utf-8")
 
 
     user = gen_user(name)
-    await conn.send(user.id)
+    conn.send(str.encode(user.id))
+
 
     STATE.users[user.id] = user
 
@@ -41,7 +35,7 @@ async def user_thread(conn):
     while True:
         try:
             # recieve data
-            data = await conn.recv()
+            data = conn.recv(2048 * 4)
             if not data:
                 break
 
@@ -85,17 +79,25 @@ async def user_thread(conn):
                 print("Getter")
 
 
-            send_data = json.dumps(serialize_state())
+            send_data = json.dumps(serialize_state()).encode("utf-8")
 
-            await conn.send(send_data)
+            size = sys.getsizeof(send_data)
+
+            conn.send(str.encode(str(size)))
+
+            
 
 
-        except websockets.ConnectionClosedOK as e:
-            print(f"[CONNECTION] {name} disconnected")
-            print(e)
+            conn.send(send_data)
+
+
+        except Exception as e:
+            print(f"Error handling data from {_id}:\n{e}\n")
             break
+        time.sleep(0.001)
     print("Check 2")
 
-    print(f"DISCONNECTED: {user.name}")
+    print(f"DISCONNECTED: {_id}")
+    conn.close()
     STATE.users.pop(user.id)
     STATE.connections -= 1
