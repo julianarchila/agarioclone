@@ -49,7 +49,9 @@ class Network:
                 self.client.send(json.dumps(data).encode("utf-8"))
             else:
                 self.client.send(str.encode(data))
-            reply = self.client.recv(2048 * 10)
+            size  = self.client.recv(8)
+            reply = self.client.recv(int(size.decode("utf-8")))
+            # reply = self.client.recv(1008 * 10)
             # try:
             #     print("Loaading with pickle")
             #     reply = pickle.loads(reply)

@@ -1,6 +1,6 @@
 # Utils
 from socket import socket
-import random
+import random, sys
 from time import time
 import time
 import json
@@ -74,7 +74,15 @@ def user_thread(conn: socket, _id: any):
             if data["cmd"] == "get":
                 print("Getter")
 
+
             send_data = json.dumps(serialize_state()).encode("utf-8")
+
+            size = sys.getsizeof(send_data)
+
+            conn.send(str.encode(str(size)))
+
+            
+
 
             conn.send(send_data)
 
