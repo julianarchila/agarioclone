@@ -16,8 +16,8 @@ class Network:
         # self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client = websocket.WebSocket()
         # self.client.settimeout(10.0)
-        self.host = "127.0.0.1"
-        # self.host = "13.71.64.234"
+        # self.host = "127.0.0.1"
+        self.host = "13.71.64.234"
         self.port = 5555
         # self.addr = (self.host, self.port)
 

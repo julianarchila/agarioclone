@@ -10,7 +10,7 @@ WIN_H = 700
 WIN_SIZE = (WIN_W, WIN_H)
 STARTING_RADIURS = 10
 B_N = 20
-START_VEL = 9
+START_VEL = 20
 
 NAME_FONT = pygame.font.SysFont("comicsans", 20)
 TIME_FONT = pygame.font.SysFont("comicsans", 30)

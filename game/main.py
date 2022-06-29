@@ -42,8 +42,8 @@ def main(name):
         STATE.score = current_user["score"] 
 
         vel = START_VEL - round(STATE.score / 4)
-        if vel < 2:
-            vel = 2
+        if vel < 10:
+            vel = 10
 
 
         ### MOUSE HANDLER ###
