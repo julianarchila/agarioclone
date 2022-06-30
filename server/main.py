@@ -19,4 +19,5 @@ async def main():
 
 
 if __name__ == "__main__":
+    print(f"Server started")
     asyncio.run(main())
